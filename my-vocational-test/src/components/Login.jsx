@@ -15,7 +15,8 @@ const Login = () => {
         password
       });
       const { token } = response.data;
-      // Almacena el token en el almacenamiento local o en el estado de la aplicación
+      console.log('Token:', token); // Añadir un console.log aquí
+      localStorage.setItem('token', token); // Almacena el token en el localStorage
       if (email.endsWith('@tecsup.edu.pe')) {
         navigate('/admin-dashboard');
       } else {

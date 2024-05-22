@@ -1,36 +1,48 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [age, setAge] = useState("");
-  const [educationLevel, setEducationLevel] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [age, setAge] = useState('');
+  const [educationLevel, setEducationLevel] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState('user');
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/register", {
+      const payload = {
         email,
         password,
         role,
-        name,
-        surname,
-        age,
-        educationLevel,
-        acceptTerms,
-      });
-      console.log("User registered successfully:", response.data);
-      navigate("/login");
+      };
+
+      if (role === 'user') {
+        Object.assign(payload, {
+          name,
+          surname,
+          age,
+          educationLevel,
+          acceptTerms,
+        });
+      }
+
+      const response = await axios.post('http://localhost:5000/api/register', payload);
+      console.log('User registered successfully:', response.data);
+      localStorage.setItem('token', response.data.token); // Almacena el token en localStorage
+      if (role === 'admin') {
+        navigate('/admin-dashboard');
+      } else {
+        navigate('/user-dashboard');
+      }
     } catch (error) {
-      console.error("Error registering user:", error);
-      alert("Error registering user");
+      console.error('Error registering user:', error);
+      alert('Error registering user');
     }
   };
 
@@ -52,7 +64,7 @@ const Register = () => {
           placeholder="Password"
           required
         />
-        {role === "user" && (
+        {role === 'user' && (
           <>
             <input
               type="text"
