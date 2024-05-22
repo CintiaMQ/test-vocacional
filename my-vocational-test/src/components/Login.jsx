@@ -1,3 +1,5 @@
+// Login.jsx
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -15,8 +17,8 @@ const Login = () => {
         password
       });
       const { token } = response.data;
-      console.log('Token:', token); // Añadir un console.log aquí
-      localStorage.setItem('token', token); // Almacena el token en el localStorage
+      // Almacena el token en el almacenamiento local o en el estado de la aplicación
+      localStorage.setItem('token', token);
       if (email.endsWith('@tecsup.edu.pe')) {
         navigate('/admin-dashboard');
       } else {

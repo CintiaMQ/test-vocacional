@@ -16,30 +16,19 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const payload = {
+      const response = await axios.post('http://localhost:5000/api/register', {
         email,
         password,
+        name: role === 'user' ? name : undefined,
+        surname: role === 'user' ? surname : undefined,
+        age: role === 'user' ? age : undefined,
+        educationLevel: role === 'user' ? educationLevel : undefined,
+        acceptTerms: role === 'user' ? acceptTerms : undefined,
         role,
-      };
-
-      if (role === 'user') {
-        Object.assign(payload, {
-          name,
-          surname,
-          age,
-          educationLevel,
-          acceptTerms,
-        });
-      }
-
-      const response = await axios.post('http://localhost:5000/api/register', payload);
+      });
       console.log('User registered successfully:', response.data);
       localStorage.setItem('token', response.data.token); // Almacena el token en localStorage
-      if (role === 'admin') {
-        navigate('/admin-dashboard');
-      } else {
-        navigate('/user-dashboard');
-      }
+      navigate(role === 'admin' ? '/admin-dashboard' : '/user-dashboard');
     } catch (error) {
       console.error('Error registering user:', error);
       alert('Error registering user');
