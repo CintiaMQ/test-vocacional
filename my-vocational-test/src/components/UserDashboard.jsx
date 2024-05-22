@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import Sidebar from './Sidebar';
-import { AuthContext } from '../context/AuthContext'; // Importa el contexto de autenticación
-import { Outlet } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const UserDashboard = () => {
-  const { userName } = useContext(AuthContext); // Usa el contexto para obtener el userName
+  const { userName } = useContext(AuthContext);
+
+  if (!userName) {
+    return <div>Loading...</div>; // O cualquier indicador de carga
+  }
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -15,16 +18,16 @@ const UserDashboard = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
               <img
-                src="https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg" // Reemplaza con la ruta de la imagen de perfil
+                src="https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg"
                 alt="Profile"
                 className="w-10 h-10 rounded-full"
               />
-              <span className="ml-2">{userName}</span> {/* Muestra el nombre de usuario */}
+              <span className="ml-2">{userName}</span>
             </div>
           </div>
         </header>
         <main>
-          <Outlet /> {/* Renderiza los componentes de acuerdo a la navegación */}
+          {/* Tu contenido aquí */}
         </main>
       </div>
     </div>
