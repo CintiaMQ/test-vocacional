@@ -27,7 +27,7 @@ const Register = () => {
         role,
       });
       console.log('User registered successfully:', response.data);
-      localStorage.setItem('token', response.data.token); // Almacena el token en localStorage
+      localStorage.setItem('token', response.data.token);
       navigate(role === 'admin' ? '/admin-dashboard' : '/user-dashboard');
     } catch (error) {
       console.error('Error registering user:', error);
@@ -35,71 +35,175 @@ const Register = () => {
     }
   };
 
+  const handleLoginRedirect = () => {
+    navigate('/login');
+  };
+
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        {role === 'user' && (
-          <>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Name"
-              required
-            />
-            <input
-              type="text"
-              value={surname}
-              onChange={(e) => setSurname(e.target.value)}
-              placeholder="Surname"
-              required
-            />
-            <input
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder="Age"
-              required
-            />
-            <input
-              type="text"
-              value={educationLevel}
-              onChange={(e) => setEducationLevel(e.target.value)}
-              placeholder="Education Level"
-              required
-            />
-            <label>
-              <input
-                type="checkbox"
-                checked={acceptTerms}
-                onChange={(e) => setAcceptTerms(e.target.checked)}
-                required
-              />
-              Accept Terms and Conditions
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-2xl p-8 space-y-8 bg-white rounded-lg shadow-lg">
+        <div className="text-center">
+          <img 
+            className="w-16 h-16 mx-auto" 
+            src="https://via.placeholder.com/150" 
+            alt="Logo"
+          />
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Crear Cuenta</h2>
+        </div>
+        <form className="space-y-6" onSubmit={handleRegister}>
+          <div className="flex space-x-4">
+            <div className="w-1/2">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Nombre
+              </label>
+              <div className="mt-1">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  autoComplete="given-name"
+                  required={role === 'user'}
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="Nombre"
+                />
+              </div>
+            </div>
+            <div className="w-1/2">
+              <label htmlFor="surname" className="block text-sm font-medium text-gray-700">
+               Apellido
+              </label>
+              <div className="mt-1">
+                <input
+                  id="surname"
+                  name="surname"
+                  type="text"
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
+                  autoComplete="family-name"
+                  required={role === 'user'}
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="Apellido"
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
             </label>
-          </>
-        )}
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
-        <button type="submit">Register</button>
-      </form>
+            <div className="mt-1">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+                required
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Contraseña
+            </label>
+            <div className="mt-1">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="new-password"
+                required
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Contraseña"
+              />
+            </div>
+          </div>
+          {role === 'user' && (
+            <>
+              <div>
+                <label htmlFor="age" className="block text-sm font-medium text-gray-700">
+                  Edad
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="age"
+                    name="age"
+                    type="number"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    autoComplete="age"
+                    required
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Ingresar edad"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="educationLevel" className="block text-sm font-medium text-gray-700">
+                 Nivel de educación
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="educationLevel"
+                    name="educationLevel"
+                    type="text"
+                    value={educationLevel}
+                    onChange={(e) => setEducationLevel(e.target.value)}
+                    autoComplete="education-level"
+                    required
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Ingresar nivel de educación"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center">
+                <input
+                  id="acceptTerms"
+                  name="acceptTerms"
+                  type="checkbox"
+                  checked={acceptTerms}
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                  required
+                  className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+                <label htmlFor="acceptTerms" className="block ml-2 text-sm text-gray-900">
+                 Estoy de acuerdo con los <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">Términos</a> y la <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">Política de privacidad</a>.
+                </label>
+              </div>
+            </>
+          )}
+          <div>
+            <select value={role} onChange={(e) => setRole(e.target.value)} className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <option value="user">Usuario</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div>
+          <div>
+            <button
+              type="submit"
+              className="w-full px-4 py-2 mt-6 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Registrarse
+            </button>
+          </div>
+          <div className="text-sm text-center">
+            <a
+              href="#"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+              onClick={handleLoginRedirect}
+            >
+              Iniciar sesión
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
