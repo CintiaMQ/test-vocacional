@@ -7,15 +7,15 @@ import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 import UserDashboard from "./components/UserDashboard";
 import LandingPage from './components/LandingPage';
-import TestContainer from './containers/TestContainer';
 import Resultados from './components/Resultados';
 import Videos from './components/Videos';
 import Inicio from './components/Inicio';
-import UserManagement from './components/UserManagement'; // Nombre corregido
+import UserManagement from './components/UserManagement';
 import TestResults from './components/TestResults';
 import ContentManagement from './components/ContentManagement';
 import Analytics from './components/Analytics';
-import { AuthProvider } from './context/AuthContext'; // Importa el proveedor de contexto
+import { AuthProvider } from './context/AuthContext';
+import Test from './components/Test';
 
 function AppRoutes() {
   return (
@@ -35,7 +35,7 @@ function AppRoutes() {
           </Route>
           <Route path="/user-dashboard/*" element={<UserDashboard />}>
             <Route path="inicio" element={<Inicio />} />
-            <Route path="test" element={<TestContainer />} />
+            <Route path="test" element={<Test />} />
             <Route path="resultados" element={<Resultados />} />
             <Route path="videos" element={<Videos />} />
           </Route>

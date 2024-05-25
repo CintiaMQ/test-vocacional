@@ -1,0 +1,10 @@
+[
+  {
+    "question": "Pregunta 1",
+    "options": ["Opción 1", "Opción 2", "Opción 3"]
+  },
+  {
+    "question": "Pregunta 2",
+    "options": ["Opción 1", "Opción 2", "Opción 3"]
+  }
+]

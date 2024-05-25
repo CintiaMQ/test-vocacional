@@ -1,10 +1,8 @@
-// backend/routes/userRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); // Esta es la línea que importa jwt
-const User = require('../models/User'); // Modelo de usuario de MongoDB
+const conectarMongoDB = require('../config/db'); // Importar la función de conexión a MongoDB
 
 // Ruta para registrar un usuario
 router.post('/register', async (req, res) => {
@@ -14,10 +12,15 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'All fields are required for user registration' });
     }
 
+    const db = await conectarMongoDB(); // Obtener la conexión a MongoDB
+    const usersCollection = db.collection('users'); // Obtener la colección de usuarios
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = new User({ email, password: hashedPassword, role, name, surname, age, educationLevel, acceptTerms });
-    await newUser.save();
+    
+    // Crear el nuevo usuario en la colección de usuarios
+    await usersCollection.insertOne({ email, password: hashedPassword, role, name, surname, age, educationLevel, acceptTerms });
+
     res.status(200).json({ message: 'User registered successfully' });
   } catch (err) {
     console.error('Error in /register:', err);
@@ -31,7 +34,10 @@ router.post('/login', async (req, res) => {
   console.log(`Login attempt for email: ${email}`);
 
   try {
-    const user = await User.findOne({ email });
+    const db = await conectarMongoDB(); // Obtener la conexión a MongoDB
+    const usersCollection = db.collection('users'); // Obtener la colección de usuarios
+
+    const user = await usersCollection.findOne({ email });
     if (!user) {
       console.log('User not found');
       return res.status(400).json({ message: 'Invalid credentials' });

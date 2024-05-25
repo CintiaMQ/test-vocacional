@@ -12,7 +12,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`h-screen bg-gray-800 text-white ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300 flex flex-col`}>
+    <div className={`h-screen bg-indigo-600 text-white ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300 flex flex-col`}>
       <div className="flex items-center justify-between p-6">
         <h1 className={`text-3xl font-semibold ${isCollapsed ? 'hidden' : 'block'}`}>TECVOC</h1>
         <button onClick={toggleSidebar} className="md:hidden">
@@ -28,25 +28,25 @@ const Sidebar = () => {
         {!isCollapsed && <span className="ml-2">{isAuthenticated ? userName : 'Guest'}</span>}
       </div>
       <nav className="mt-10 flex-grow">
-        <Link to="/inicio" className="flex items-center py-2 px-6 text-gray-300 hover:bg-gray-700">
+        <Link to="/inicio" className="flex items-center py-2 px-6 text-gray-300 hover:bg-purple-600 ">
           <FiHome size={isCollapsed ? 35 : 24} />
           {!isCollapsed && <span className="mx-4 font-medium">Inicio</span>}
         </Link>
-        <Link to="/test" className="flex items-center py-2 px-6 text-gray-300 hover:bg-gray-700">
+        <Link to="/test" className="flex items-center py-2 px-6 text-gray-300 hover:bg-purple-600">
           <FiList size={isCollapsed ? 35 : 24} />
           {!isCollapsed && <span className="mx-4 font-medium">Test</span>}
         </Link>
-        <Link to="/resultados" className="flex items-center py-2 px-6 text-gray-300 hover:bg-gray-700">
+        <Link to="/resultados" className="flex items-center py-2 px-6 text-gray-300 hover:bg-purple-600">
           <FiFileText size={isCollapsed ? 35 : 24} />
           {!isCollapsed && <span className="mx-4 font-medium">Resultados</span>}
         </Link>
-        <Link to="/videos" className="flex items-center py-2 px-6 text-gray-300 hover:bg-gray-700">
+        <Link to="/videos" className="flex items-center py-2 px-6 text-gray-300 hover:bg-purple-600">
           <FiVideo size={isCollapsed ? 35 : 24} />
           {!isCollapsed && <span className="mx-4 font-medium">Videos</span>}
         </Link>
       </nav>
       <div className="mt-auto mb-4">
-        <button onClick={logout} className="flex items-center py-2 px-6 text-gray-300 hover:bg-gray-700 w-full">
+        <button onClick={logout} className="flex items-center py-2 px-6 text-gray-300 hover:bg-purple-600 w-full">
           <FiLogOut size={isCollapsed ? 35 : 24} />
           {!isCollapsed && <span className="mx-4 font-medium">Cerrar sesión</span>}
         </button>
